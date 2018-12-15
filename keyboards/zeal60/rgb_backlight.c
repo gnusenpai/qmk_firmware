@@ -58,7 +58,7 @@
 #define BACKLIGHT_LED_COUNT 72
 #endif
 
-#define BACKLIGHT_EFFECT_MAX 10
+#define BACKLIGHT_EFFECT_MAX 13
 
 backlight_config g_config = {
 	.use_split_backspace = RGB_BACKLIGHT_USE_SPLIT_BACKSPACE,
@@ -1094,6 +1094,54 @@ void backlight_effect_custom_colors(void)
 }
 #endif
 
+void backlight_effect_bruiseblack(uint8_t mode)
+{
+	//RGB rgb1 = hsv_to_rgb( (HSV){ .h = g_config.color_1.h, .s = g_config.color_1.s, .v = g_config.brightness } );
+	//RGB rgb2 = hsv_to_rgb( (HSV){ .h = g_config.color_2.h, .s = g_config.color_2.s, .v = g_config.brightness } );
+	//backlight_set_color_all(0, 0, 0);
+
+	// Relies on hue being 8-bit and wrapping
+	for ( int i=0; i<72; i++ )
+	{
+		uint16_t offsetB = g_key_hit[i]<<(g_config.effect_speed);
+		uint16_t offsetH = g_key_hit[i]<<(g_config.effect_speed);
+		// stabilizer LEDs use spacebar hits
+		if ( i == 36+6 || i == 54+13 || // LC6, LD13
+				( g_config.use_7u_spacebar && i == 54+14 ) ) // LD14
+		{
+			offsetB = g_key_hit[36+0]<<(g_config.effect_speed);
+			offsetH = g_key_hit[36+0]<<(g_config.effect_speed);
+		}
+
+		if ( mode == 0 )
+		{
+			offsetB = (offsetB<=255) ? (255-offsetB) : 0;
+			offsetH = (offsetH<=255) ? (255+offsetH) : 0;
+
+			HSV hsv = { .h = g_config.color_1.h+offsetH, .s = 255, .v = offsetB };
+			RGB rgb = hsv_to_rgb( hsv );
+			backlight_set_color( i, rgb.r, rgb.g, rgb.b );
+		}
+		if ( mode == 1 )
+		{
+			offsetB = (offsetB<=255) ? (255-offsetB) : 0;
+			offsetH = (offsetH<=255) ? (255+offsetH) : 0;
+
+			HSV hsv = { .h = g_config.color_1.h-offsetH, .s = 255, .v = offsetB };
+			RGB rgb = hsv_to_rgb( hsv );
+			backlight_set_color( i, rgb.r, rgb.g, rgb.b );
+		}
+		if ( mode == 2 )
+		{
+			offsetB = (offsetB<=255) ? (255-offsetB) : 0;
+
+			HSV hsv = { .h = g_config.color_1.h, .s = g_config.color_1.s, .v = offsetB };
+			RGB rgb = hsv_to_rgb( hsv );
+			backlight_set_color( i, rgb.r, rgb.g, rgb.b );
+		}
+	}
+}
+
 void backlight_effect_indicators_set_colors( uint8_t index, HS color )
 {
 	HSV hsv = { .h = color.h, .s = color.s, .v = g_config.brightness };
@@ -1265,6 +1313,15 @@ static void gpt_backlight_timer_task(GPTDriver *gptp)
 			break;
 		case 10:
 			backlight_effect_cycle_radial2();
+			break;
+		case 11:
+			backlight_effect_bruiseblack(0);
+			break;
+		case 12:
+			backlight_effect_bruiseblack(1);
+			break;
+		case 13:
+			backlight_effect_bruiseblack(2);
 			break;
 		default:
 			backlight_effect_all_off();
