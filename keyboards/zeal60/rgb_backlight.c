@@ -1224,7 +1224,8 @@ void backlight_effect_indicators(void)
 __attribute__((weak))
 void backlight_indicators_user(void) {}
 
-#if !defined(RGB_BACKLIGHT_HS60)ISR(TIMER3_COMPA_vect)
+#if !defined(RGB_BACKLIGHT_HS60)
+ISR(TIMER3_COMPA_vect)
 #else //STM32 interrupt
 static void gpt_backlight_timer_task(GPTDriver *gptp)
 #endif
