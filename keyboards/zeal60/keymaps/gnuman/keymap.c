@@ -11,6 +11,8 @@ extern backlight_config g_config;
 enum my_layers {
 	_BL,
 	_CM,
+	_DH,
+	_DHA,
 	_EL,
 	_F1,
 	_F2,
@@ -19,7 +21,9 @@ enum my_layers {
 
 enum my_keycodes {
 	QWERTY = SAFE_RANGE,
-	COLEMAK
+	COLEMAK,
+	COLEDH,
+	COLEDHA
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -36,6 +40,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_LBRC, KC_RBRC, KC_BSLS,
 		FN_BSPC, KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT, KC_ENT,
 		KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
+		KC_LCTL, KC_LGUI, KC_LALT,                   KC_SPC,                             KC_LALT, MO(_F2), MO(_F3), KC_RCTL
+	),
+
+	[_DH] = LAYOUT_60_ansi(
+		KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC,
+		KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_LBRC, KC_RBRC, KC_BSLS,
+		FN_BSPC, KC_A,    KC_R,    KC_S,    KC_T,    KC_G,    KC_K,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT, KC_ENT,
+		KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,    KC_M,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
+		KC_LCTL, KC_LGUI, KC_LALT,                   KC_SPC,                             KC_LALT, MO(_F2), MO(_F3), KC_RCTL
+	),
+
+	[_DHA] = LAYOUT_60_ansi(
+		KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC,
+		KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_LBRC, KC_RBRC, KC_BSLS,
+		FN_BSPC, KC_A,    KC_R,    KC_S,    KC_T,    KC_G,    KC_K,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT, KC_ENT,
+		KC_LSFT, KC_X,    KC_C,    KC_D,    KC_V,    KC_Z,    KC_M,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
 		KC_LCTL, KC_LGUI, KC_LALT,                   KC_SPC,                             KC_LALT, MO(_F2), MO(_F3), KC_RCTL
 	),
 
@@ -64,7 +84,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	),
 
 	[_F3] = LAYOUT_60_ansi(
-		TO(_EL), QWERTY,  COLEMAK, _______, _______, _______, _______, KC_NLCK, KC_PSLS, KC_PAST, _______, _______, _______, _______,
+		TO(_EL), QWERTY,  COLEMAK, COLEDH,  COLEDHA, _______, _______, KC_NLCK, KC_PSLS, KC_PAST, _______, _______, _______, _______,
 		_______, _______, _______, _______, _______, _______, _______, KC_P7,   KC_P8,   KC_P9,   KC_PMNS, _______, _______, _______,
 		_______, _______, _______, _______, _______, _______, _______, KC_P4,   KC_P5,   KC_P6,   KC_PPLS, _______, _______,
 		_______, _______, _______, _______, _______, _______, KC_PDOT, KC_P1,   KC_P2,   KC_P3,   KC_PENT, _______,
@@ -83,6 +103,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		case COLEMAK:
 			if (record->event.pressed) {
 				set_single_persistent_default_layer(_CM);
+			}
+			return false;
+			break;
+		case COLEDH:
+			if (record->event.pressed) {
+				set_single_persistent_default_layer(_DH);
+			}
+			return false;
+			break;
+		case COLEDHA:
+			if (record->event.pressed) {
+				set_single_persistent_default_layer(_DHA);
 			}
 			return false;
 			break;
