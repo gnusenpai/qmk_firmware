@@ -13,6 +13,7 @@ enum my_layers {
 	_CM,
 	_DH,
 	_DHA,
+	_DV,
 	_EL,
 	_F1,
 	_F2,
@@ -23,7 +24,8 @@ enum my_keycodes {
 	QWERTY = SAFE_RANGE,
 	COLEMAK,
 	COLEDH,
-	COLEDHA
+	COLEDHA,
+	DVORAK
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -59,6 +61,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_LCTL, KC_LGUI, KC_LALT,                   KC_SPC,                             KC_LALT, MO(_F2), MO(_F3), KC_RCTL
 	),
 
+	[_DV] = LAYOUT_60_ansi(
+		KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_LBRC, KC_RBRC, KC_BSPC,
+		KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_SLSH, KC_EQL,  KC_BSLS,
+		FN_BSPC, KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_MINS, KC_ENT,
+		KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_RSFT,
+		KC_LCTL, KC_LGUI, KC_LALT,                   KC_SPC,                             KC_LALT, MO(_F2), MO(_F3), KC_RCTL
+	),
+
 	[_EL] = LAYOUT_60_ansi(
 		TO(_BL), KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
 		KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
@@ -86,7 +96,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[_F3] = LAYOUT_60_ansi(
 		TO(_EL), _______, _______, _______, _______, _______, _______, KC_NLCK, KC_PSLS, KC_PAST, _______, _______, _______, _______,
 		_______, _______, _______, _______, COLEDH,  _______, _______, KC_P7,   KC_P8,   KC_P9,   KC_PMNS, _______, _______, _______,
-		_______, _______, _______, QWERTY,  COLEMAK, _______, _______, KC_P4,   KC_P5,   KC_P6,   KC_PPLS, _______, _______,
+		_______, _______, DVORAK,  QWERTY,  COLEMAK, _______, _______, KC_P4,   KC_P5,   KC_P6,   KC_PPLS, _______, _______,
 		_______, _______, _______, _______, COLEDHA, _______, KC_PDOT, KC_P1,   KC_P2,   KC_P3,   KC_PENT, _______,
 		_______, _______, _______,                   KC_P0,                              KC_PDOT, _______, _______, _______
 	)
@@ -115,6 +125,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		case COLEDHA:
 			if (record->event.pressed) {
 				set_single_persistent_default_layer(_DHA);
+			}
+			return false;
+			break;
+		case DVORAK:
+			if (record->event.pressed) {
+				set_single_persistent_default_layer(_DV);
 			}
 			return false;
 			break;
