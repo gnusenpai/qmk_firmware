@@ -140,14 +140,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void backlight_indicators_user(void) {
+	HS hsPrimary = { .h = g_config.color_1.h,  .s = g_config.color_1.s };
+	HS hsSecondary = { .h = g_config.color_2.h,  .s = g_config.color_2.s };
+	HS hsWhite = { .h = 0,  .s = 0 };
 	HS hs1 = { .h = g_config.color_1.h+64,  .s = g_config.color_1.s };
-	HS hs2 = { .h = g_config.color_1.h+128, .s = g_config.color_1.s };
+	//HS hs2 = { .h = g_config.color_1.h+128, .s = g_config.color_1.s };
 	HS hs3 = { .h = g_config.color_1.h+192, .s = g_config.color_1.s };
 	if (layer_state_is(_F1)) {
 		backlight_effect_indicators_set_colors(36, hs1);
 	}
 	if (layer_state_is(_F2)) {
-		backlight_effect_indicators_set_colors(36, hs2);
+		backlight_effect_indicators_set_colors(36, hsWhite);
+		backlight_effect_indicators_set_colors(42, hsPrimary);
+		backlight_effect_indicators_set_colors(67, hsSecondary);
 	}
 	if (layer_state_is(_F3)) {
 		backlight_effect_indicators_set_colors(36, hs3);
