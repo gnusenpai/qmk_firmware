@@ -17,7 +17,8 @@ enum my_layers {
 	_EL,
 	_F1,
 	_F2,
-	_F3
+	_F3,
+	_F4
 };
 
 enum my_keycodes {
@@ -25,7 +26,17 @@ enum my_keycodes {
 	COLEMAK,
 	COLEDH,
 	COLEDHA,
-	DVORAK
+	DVORAK,
+	E_Q,
+	E_G,
+	E_L,
+	E_Y,
+	E_R,
+	E_S,
+	E_T,
+	E_N,
+	E_O,
+	E_B
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -94,11 +105,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	),
 
 	[_F3] = LAYOUT_60_ansi_split_bs_rshift(
-		TO(_EL), _______, _______, _______, _______, _______, _______, KC_NLCK, KC_PSLS, KC_PAST, _______, _______, _______, _______, _______,
+		TO(_EL), _______, _______, _______, _______, _______, _______, KC_NLCK, KC_PSLS, KC_PAST, _______, UC_M_WC, UC_M_LN, _______, _______,
 		_______, _______, _______, _______, COLEDH,  _______, _______, KC_P7,   KC_P8,   KC_P9,   KC_PMNS, _______, _______, _______,
-		_______, _______, DVORAK,  QWERTY,  COLEMAK, _______, _______, KC_P4,   KC_P5,   KC_P6,   KC_PPLS, _______, _______,
+		MO(_F4), UC(0x00E5), DVORAK,  QWERTY,  COLEMAK, _______, _______, KC_P4,   KC_P5,   KC_P6,   KC_PPLS, _______, _______,
 		_______, _______, _______, _______, COLEDHA, _______, KC_PDOT, KC_P1,   KC_P2,   KC_P3,   KC_PENT, _______, _______,
-		_______, _______, _______,                   KC_P0,                              KC_PDOT, _______, _______, _______
+		_______, _______, _______,                   KC_P0,                              KC_PDOT, MO(_F4), _______, _______
+	),
+
+	[_F4] = LAYOUT_60_ansi_split_bs_rshift(
+		_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+		_______, E_Q,     _______, _______, _______, E_G,     _______, E_L,     _______, E_Y,     _______, _______, _______, _______,
+		_______, _______, E_R,     E_S,     E_T,     _______, _______, E_N,     _______, _______, E_O,     _______, _______,
+		_______, _______, _______, _______, _______, E_B,     _______, _______, _______, _______, _______, _______, _______,
+		_______, _______, _______,                   _______,                            _______, _______, _______, _______
 	)
 };
 
@@ -134,6 +153,66 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			}
 			return false;
 			break;
+		case E_Q:
+			if (record->event.pressed) {
+				send_unicode_hex_string("0028 273F 25E0 203F 25E0 0029");
+			}
+			return false;
+			break;
+		case E_G:
+			if (record->event.pressed) {
+				send_unicode_hex_string("2665 007E 0028 25E0 203F 25D5 273F 0029");
+			}
+			return false;
+			break;
+		case E_L:
+			if (record->event.pressed) {
+				send_unicode_hex_string("0028 0020 0361 00B0 0020 035C 0296 0020 0361 00B0 0029");
+			}
+			return false;
+			break;
+		case E_Y:
+			if (record->event.pressed) {
+				send_unicode_hex_string("10DA 0028 0CA0 76CA 0CA0 0020 10DA 0029");
+			}
+			return false;
+			break;
+		case E_R:
+			if (record->event.pressed) {
+				send_unicode_hex_string("FF0F 0028 2267 2207 2266 0029 FF3C");
+			}
+			return false;
+			break;
+		case E_S:
+			if (record->event.pressed) {
+				send_unicode_hex_string("00AF 005C 005F 0028 30C4 0029 005F 002F 00AF");
+			}
+			return false;
+			break;
+		case E_T:
+			if (record->event.pressed) {
+				send_unicode_hex_string("0398 03CE 03B8");
+			}
+			return false;
+			break;
+		case E_N:
+			if (record->event.pressed) {
+				send_unicode_hex_string("0CA0 005F 0CA0");
+			}
+			return false;
+			break;
+		case E_O:
+			if (record->event.pressed) {
+				send_unicode_hex_string("25D5 03C9 25D5");
+			}
+			return false;
+			break;
+		case E_B:
+			if (record->event.pressed) {
+				send_unicode_hex_string("0064 0028 0020 005E 25C7 005E 0029 0062");
+			}
+			return false;
+			break;
 		default:
 			return true;
 	}
@@ -156,5 +235,8 @@ void backlight_indicators_user(void) {
 	}
 	if (layer_state_is(_F3)) {
 		backlight_effect_indicators_set_colors(36, hs3);
+	}
+	if (layer_state_is(_F4)) {
+		backlight_effect_indicators_set_colors(36, hsWhite);
 	}
 }
