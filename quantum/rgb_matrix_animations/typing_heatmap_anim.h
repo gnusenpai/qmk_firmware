@@ -5,6 +5,11 @@ RGB_MATRIX_EFFECT(TYPING_HEATMAP)
 void process_rgb_matrix_typing_heatmap(keyrecord_t* record) {
     uint8_t row   = record->event.key.row;
     uint8_t col   = record->event.key.col;
+
+    #ifndef RGB_MATRIX_KEYRELEASES
+    if (!record->event.pressed) { return; }
+    #endif
+
     uint8_t m_row = row - 1;
     uint8_t p_row = row + 1;
     uint8_t m_col = col - 1;
