@@ -179,20 +179,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _____________CARPLAX_QFMLWY_L3_____________, _____________CARPLAX_QFMLWY_R3_____________
   ),
 
-
-// Reverts OSM(Shift) to normal Shifts. However, may not need since we fixed the issue with RDP (LOCAL RESOURCES)
-  [_MODS] = LAYOUT_ergodox_pretty_wrapper(
-             _______, _______, _______, _______, _______, _______, _______,                 _______, _______, _______, _______, _______, _______, _______,
-             _______, _______, _______, _______, _______, _______, _______,                 _______, _______, _______, _______, _______, _______, _______,
-             _______, _______, _______, _______, _______, _______,                                   _______, _______, _______, _______, _______, _______,
-             KC_LSFT, _______, _______, _______, _______, _______, _______,                 _______, _______, _______, _______, _______, _______, KC_RSFT,
-             _______, _______, _______, _______, _______,                                                     _______, _______, _______, _______, _______,
-                                                          _______, _______,                 _______, _______,
-                                                                   _______,                 _______,
-                                                 _______, _______, _______,                 _______, _______, _______
-            ),
-
-
 /* Keymap 4: Customized Overwatch Layout
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
@@ -283,7 +269,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              KC_MAKE, _______, _______, _______, _______, _______, UC_MOD,                  KC_NUKE, _________________ADJUST_R1_________________, KC_RST,
              VRSN,    _________________ADJUST_L1_________________, _______,                 _______, _______, _______, _______, _______, _______, EEP_RST,
              _______, _________________ADJUST_L2_________________,                                   _________________ADJUST_R2_________________, RGB_IDL,
-             _______, _________________ADJUST_L3_________________, _______,                 _______, _________________ADJUST_R3_________________, TG(_MODS),
+             _______, _________________ADJUST_L3_________________, _______,                 _______, _________________ADJUST_R3_________________, OST_TOG,
              _______, _______, _______, _______, _______,                                                     _______, _______, _______, _______, _______,
                                                           _______, _______,                 _______, _______,
                                                                    _______,                 _______,
@@ -422,31 +408,30 @@ void rgb_matrix_indicators_user(void) {
                 rgb_matrix_layer_helper(HSV_RED, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
                 break;
             default: {
-                bool mods_enabled = IS_LAYER_ON(_MODS);
                 switch (get_highest_layer(default_layer_state)) {
                     case _QWERTY:
-                        rgb_matrix_layer_helper(HSV_CYAN, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                        rgb_matrix_layer_helper(HSV_CYAN, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
                         break;
                     case _COLEMAK:
-                        rgb_matrix_layer_helper(HSV_MAGENTA, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                        rgb_matrix_layer_helper(HSV_MAGENTA, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
                         break;
                     case _DVORAK:
-                        rgb_matrix_layer_helper(HSV_SPRINGGREEN, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                        rgb_matrix_layer_helper(HSV_SPRINGGREEN, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
                         break;
                     case _WORKMAN:
-                        rgb_matrix_layer_helper(HSV_GOLDENROD, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                        rgb_matrix_layer_helper(HSV_GOLDENROD, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
                         break;
                     case _NORMAN:
-                        rgb_matrix_layer_helper(HSV_CORAL, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                        rgb_matrix_layer_helper(HSV_CORAL, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
                         break;
                     case _MALTRON:
-                        rgb_matrix_layer_helper(HSV_YELLOW, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                        rgb_matrix_layer_helper(HSV_YELLOW, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
                         break;
                     case _EUCALYN:
-                        rgb_matrix_layer_helper(HSV_PINK, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                        rgb_matrix_layer_helper(HSV_PINK, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
                         break;
                     case _CARPLAX:
-                        rgb_matrix_layer_helper(HSV_BLUE, mods_enabled, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
+                        rgb_matrix_layer_helper(HSV_BLUE, 1, rgb_matrix_config.speed, LED_FLAG_MODIFIER);
                         break;
                 }
                 break;

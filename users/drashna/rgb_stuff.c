@@ -313,31 +313,30 @@ layer_state_t layer_state_set_rgb_light(layer_state_t state) {
                 break;
             default:  //  for any other layers, or the default layer
             {
-                uint8_t mode = get_highest_layer(state) == _MODS ? RGBLIGHT_MODE_BREATHING : RGBLIGHT_MODE_STATIC_LIGHT;
                 switch (get_highest_layer(default_layer_state)) {
                     case _COLEMAK:
-                        rgblight_set_hsv_and_mode(HSV_MAGENTA, mode);
+                        rgblight_set_hsv_and_mode(HSV_MAGENTA, RGBLIGHT_MODE_STATIC_LIGHT);
                         break;
                     case _DVORAK:
-                        rgblight_set_hsv_and_mode(HSV_SPRINGGREEN, mode);
+                        rgblight_set_hsv_and_mode(HSV_SPRINGGREEN, RGBLIGHT_MODE_STATIC_LIGHT);
                         break;
                     case _WORKMAN:
-                        rgblight_set_hsv_and_mode(HSV_GOLDENROD, mode);
+                        rgblight_set_hsv_and_mode(HSV_GOLDENROD, RGBLIGHT_MODE_STATIC_LIGHT);
                         break;
                     case _NORMAN:
-                        rgblight_set_hsv_and_mode(HSV_CORAL, mode);
+                        rgblight_set_hsv_and_mode(HSV_CORAL, RGBLIGHT_MODE_STATIC_LIGHT);
                         break;
                     case _MALTRON:
-                        rgblight_set_hsv_and_mode(HSV_YELLOW, mode);
+                        rgblight_set_hsv_and_mode(HSV_YELLOW, RGBLIGHT_MODE_STATIC_LIGHT);
                         break;
                     case _EUCALYN:
-                        rgblight_set_hsv_and_mode(HSV_PINK, mode);
+                        rgblight_set_hsv_and_mode(HSV_PINK, RGBLIGHT_MODE_STATIC_LIGHT);
                         break;
                     case _CARPLAX:
-                        rgblight_set_hsv_and_mode(HSV_BLUE, mode);
+                        rgblight_set_hsv_and_mode(HSV_BLUE, RGBLIGHT_MODE_STATIC_LIGHT);
                         break;
                     default:
-                        rgblight_set_hsv_and_mode(HSV_CYAN, mode);
+                        rgblight_set_hsv_and_mode(HSV_CYAN, RGBLIGHT_MODE_STATIC_LIGHT);
                         break;
                 }
                 break;
