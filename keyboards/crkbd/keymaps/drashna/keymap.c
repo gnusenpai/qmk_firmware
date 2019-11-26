@@ -200,7 +200,7 @@ void rgb_matrix_indicators_user(void) {
                 rgb_matrix_layer_helper(HSV_RED, 0, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
                 break;
             default: {
-                check_default_layer(RGBLIGHT_MODE_STATIC_LIGHT, LED_FLAG_UNDERGLOW);
+                check_default_layer(0, LED_FLAG_UNDERGLOW);
                 break;
             }
         }
