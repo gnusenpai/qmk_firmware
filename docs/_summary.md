@@ -126,6 +126,7 @@
       * [SPI Driver](spi_driver.md)
       * [WS2812 Driver](ws2812_driver.md)
       * [EEPROM Driver](eeprom_driver.md)
+      * [Audio Driver](audio_driver.md)
     * [GPIO Controls](internals_gpio_control.md)
     * [Keyboard Guidelines](hardware_keyboard_guidelines.md)
 
