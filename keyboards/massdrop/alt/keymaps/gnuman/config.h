@@ -1,0 +1,4 @@
+#pragma once
+
+#define GNU_UNDERGLOW
+#define RGB_MATRIX_FRAMEBUFFER_EFFECTS
