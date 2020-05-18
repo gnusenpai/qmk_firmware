@@ -1,0 +1,2 @@
+UNICODE_ENABLE = no
+MIDI_ENABLE = yes

@@ -1,0 +1,5 @@
+#pragma once
+
+#define RGB_MATRIX_FRAMEBUFFER_EFFECTS
+#define MIDI_ENABLE_STRICT 1
+#define MIDI_ADVANCED
